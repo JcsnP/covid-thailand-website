@@ -5,10 +5,119 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Covid Stats</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css" integrity="sha384-zCbKRCUGaJDkqS1kPbPd7TveP5iyJE0EjAuZQTgFLD2ylzuqKfdKlfG/eSrtxUkn" crossorigin="anonymous">
+    <link rel=stylesheet href="https://s3-us-west-2.amazonaws.com/colors-css/2.2.0/colors.min.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Sarabun:wght@200;400;600&display=swap');
+        body {
+            font-family: 'Sarabun', sans-serif;
+        }
+        .container {
+            width: 760px;
+        }
+        .stats {
+            margin: 5px 0;
+        }
+        .card {
+            text-align: center;
+        }
+        .title h1,
+        .title h2 {
+            font-weight: bold;
+        }
+    </style>
 </head>
 <body>
 
-    
+    <div class="container">
+        <div class="title">
+            <h1>สถานการณ์ COVID-19</h1>
+            <h2>ในประเทศไทย</h2>
+        </div>
+        <span class="badge badge-pill badge-success" id="update_date"></span>
+        <div class="card mt-3">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-6">
+                        <div class="card stats bg-danger text-white">
+                            <div class="card-body">
+                                <h5>ติดเชื้อเพิ่มวันนี้</h5>
+                                <h1>+<span id="new_case"></span></h1>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="card stats bg-success text-white">
+                            <div class="card-body">
+                              <h5>หายป่วยวันนี้</h5>
+                              <h1>+<span id="new_recovered"></span></h1>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="card stats bg-warning text-dark">
+                            <div class="card-body">
+                              <h5>ติดเชื้อสะสม</h5>
+                              <h1><span id="total_case"></span></h1>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="card stats bg-info text-white">
+                            <div class="card-body">
+                                <h5>หายป่วยสะสม</h5>
+                                <h1><span id="total_recovered"></span></h1>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="card stats bg-dark text-white">
+                            <div class="card-body">
+                              <h5>เสียชีวิตวันนี้</h5>
+                              <h1>+<span id="new_death"></span></h1>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="card stats bg-secondary text-white">
+                            <div class="card-body">
+                                <h5>เสียชีวิตสะสม</h5>
+                                <h1><span id="total_death"></span></h1>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+          </div>
+    </div>
+    <script>
+        $(document).ready(function(){
+            $.ajax({
+                method: "GET",
+                url: "https://covid19.ddc.moph.go.th/api/Cases/today-cases-all"
+            })
+            .done(function(msg){
+                let new_case = msg[0].new_case;
+                let new_recovered = msg[0].new_recovered;
+                let total_case = msg[0].total_case;
+                let total_recovered = msg[0].total_recovered;
+                let new_death = msg[0].new_death;
+                let total_death = msg[0].total_death;
+                let update_date = msg[0].update_date;
 
+                $("#update_date").html(update_date);
+                $("#new_case").html(new_case);
+                $("#new_recovered").html(new_recovered);
+                $("#total_case").html(total_case);
+                $("#total_recovered").html(total_recovered);
+                $("#new_death").html(new_death);
+                $("#total_death").html(total_death);
+            })
+            .fail(function(){
+                alert("error");
+            });
+        })
+    </script>
 </body>
 </html>
