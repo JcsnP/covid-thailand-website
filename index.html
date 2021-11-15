@@ -113,10 +113,18 @@
                 $("#total_recovered").html(total_recovered);
                 $("#new_death").html(new_death);
                 $("#total_death").html(total_death);
+
+                $("h1 span").digits();
             })
             .fail(function(){
                 alert("error");
             });
+
+            $.fn.digits = function(){ 
+                return this.each(function(){ 
+                    $(this).text( $(this).text().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,") ); 
+                })
+            }
         })
     </script>
 </body>
