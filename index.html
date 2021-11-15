@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css" integrity="sha384-zCbKRCUGaJDkqS1kPbPd7TveP5iyJE0EjAuZQTgFLD2ylzuqKfdKlfG/eSrtxUkn" crossorigin="anonymous">
     <link rel=stylesheet href="https://s3-us-west-2.amazonaws.com/colors-css/2.2.0/colors.min.css">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <link rel="stylesheet" href="style.css">
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Sarabun:wght@200;400;600&display=swap');
         body {
@@ -15,6 +16,8 @@
         }
         .container {
             width: 760px;
+            margin-top: 2em;
+            margin-bottom: 2em;
         }
         .stats {
             margin: 5px 0;
@@ -26,18 +29,32 @@
         .title h2 {
             font-weight: bold;
         }
+        .title p {
+            font-size: .9em;
+            padding: 1%;
+        }
+        .card .card-body {
+            cursor: pointer;
+        }
     </style>
 </head>
 <body>
 
     <div class="container">
-        <div class="title">
-            <h1>สถานการณ์ COVID-19</h1>
-            <h2>ในประเทศไทย</h2>
+        <div class="row">
+            <div class="col-8">
+                <div class="title">
+                    <h1>สถานการณ์ COVID-19</h1>
+                    <h2>ในประเทศไทย</h2>
+                    <p class="badge badge-pill badge-success">ข้อมูล ณ <span id="update_date"></span></p>
+                </div>
+            </div>
+            <div class="col-4">
+                <img src="https://images.squarespace-cdn.com/content/v1/5768a935414fb5c446224407/1586399666577-47KWNGZCZURO9LB41VV4/Leaf-Medical---Coronavirus.png?format=1000w" style="width: 100%; cursor: pointer;">
+            </div>
         </div>
-        <span class="badge badge-pill badge-success" id="update_date"></span>
         <div class="card mt-3">
-            <div class="card-body">
+            <div class="card-body text-dark bg-light">
                 <div class="row">
                     <div class="col-6">
                         <div class="card stats bg-danger text-white">
@@ -89,6 +106,9 @@
                     </div>
                 </div>
             </div>
+            <div class="card-footer">
+                <small class="text-muted">รายงานผู้ป่วยยืนยันประจำวัน จาก กรมควบคุมโรค <a href="	https://covid19.ddc.moph.go.th/api/Cases/today-cases-all">API</a></small>
+              </div>
           </div>
     </div>
     <script>
